@@ -5,7 +5,7 @@
 ///
 
 ///
-/// Constructores y destructores
+/// Constructores y destructores de arreglos
 ///
 
 /// crea un arreglo de numeros (enteros) inicializados en cero

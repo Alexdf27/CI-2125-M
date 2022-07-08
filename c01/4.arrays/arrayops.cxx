@@ -2,6 +2,7 @@
 /// Operaciones con arreglos (array operations)
 ///
 
+#include "arrayops.h"
 #include "stochastic.h"
 
 #include <math.h>

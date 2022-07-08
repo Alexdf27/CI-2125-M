@@ -1,6 +1,8 @@
 ///
 /// stochastic.cxx
 ///
+/// Generadores de numeros aleatorios para simulaciones estocasticas
+///
 
 #include "stochastic.h"
 
