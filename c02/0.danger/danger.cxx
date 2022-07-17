@@ -16,6 +16,7 @@ const int N = 8;
 /// int lb: limite inferior del rango
 /// int ub: limite superior del rango (no incluido)
 /// const double a[]: arreglo de numeros
+/// precondicion 0 <= lb < ub <= length(a)
 void show(int lb, int ub, const double a[]) {
   fprintf(stdout, "[\n");    
   for (int i = lb; i < ub; ++i) {
@@ -50,7 +51,7 @@ void test(int lb, int ub, double a[]) {
   show(0, N, a);
 }
 
-int main(int argc, const char *argv[])
+int main_test(int argc, const char *argv[])
 {
   double canary_a[] = { 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1 };
   double x[N];
@@ -69,5 +70,11 @@ int main(int argc, const char *argv[])
   show(0, 8, canary_a);
   fprintf(stdout, "Canario B: ");
   show(0, 8, canary_b);
+
   return 0;
+}
+
+int main(int argc, const char *argv[])
+{
+  return main_test(argc, argv);
 }

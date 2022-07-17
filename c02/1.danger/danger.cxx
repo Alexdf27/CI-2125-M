@@ -16,7 +16,7 @@ const int N = 9;
 
 // animalitos de la casa: mascotas
 char canary_a[] = { 'C', 'a', 'n', 'a', 'r', 'i', 'o', ' ', 'A' };
-char anaconda[] = { 'A', 'n', 'a', 'c', 'o', 'n', 'd', 'a', '!' }; 
+char anaconda[] = { 'A', 'n', 'a', 'c', 'o', 'n', 'd', 'a', '!' };
 char canary_b[] = { 'C', 'a', 'n', 'a', 'r', 'i', 'o', ' ', 'B' };
 
 const char *pets[] = { canary_a, anaconda, canary_b };
@@ -27,7 +27,7 @@ const char *pets[] = { canary_a, anaconda, canary_b };
 /// const char s[]: los animalitos de la casa
 /// precondition 0 <= lb < ub <= N
 void show_string_range(int lb, int ub, const char s[]) {
-  for (int i = 0; i < N; ++i) {
+  for (int i = lb; i < ub; ++i) {
     fprintf(stdout, "%c", s[i]);
   }
 }
