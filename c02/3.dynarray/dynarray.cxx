@@ -2,114 +2,79 @@
 /// dynamic array operations
 ///
 
-#include <assert.h>
+#include "dynarray.h"
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-typedef struct {
+/// Nuestro glorioso arreglo dinamico (dynarray: dynamic array)
+///
+/// Es un triple:
+/// data: apuntador al arreglo que contiene la data
+/// size: tamaño de la data, es decir el numero de elementos en la data
+/// capacity: la capacidad total del arreglo
+/// 
+/// La capacidad es el numero maximo de elementos que el dynarray puede contener ...
+/// ... sin requerir una nueva reservacion de memoria para la data.
+///
+/// La diferencia (capacity - size) es la holgura del arreglo de data
+/// Otra forma de verlo es que corresponde a la cantidad de "basura" :-)
+///
+/// Los campos de esta estructura no son directamente visibles
+/// El encabezado solo declara 'struct Dynarray' sin revelar su estructura!
+///
+/// Esto (casi) garantiza que el usuario no puede corromper la implementacion
+///
+/// Todo lo que el cliente de la libreria (usuario) necesita esta provisto en la interfaz
+
+struct Dynarray {
   double *data;
   size_t size;
   size_t capacity;
-} Dynarray;
+};
 
-typedef double (*Initializer)(int i);
-
-Dynarray dynarray(int N, Initializer init) {
-  Dynarray result;
-  result.data = (double *) malloc(N * sizeof(double));
+Dynarray *dynarray(int N, Initializer init) {
+  Dynarray *dyna = (Dynarray *) malloc(sizeof(Dynarray));
+  dyna->data = (double *) malloc(N * sizeof(double));
   for (int i = 0; i < N; ++i) {
-    result.data[i] = init(i);
+    dyna->data[i] = init(i);
   }
-  result.size = result.capacity = N;
-  return result;
+  dyna->size = N;
+  dyna->capacity = N;
+  return dyna;
 }
 
-/// computa el promedio de los valores en el arreglo x
-/// n: tamano del arreglo
-/// x: arreglo de datos
-double mean(const Dynarray *dar) {
-  double sum = 0.0;
-  for (int i = 0; i < dar->size; ++i) {
-    sum += dar->data[i];
-  }
-  const double result = sum / dar->size;
-  return result;
+void dyna_destroy(Dynarray **dynarray) {
+  // ... implementar
 }
 
-/// computa la varianza de los valores en el arreglo x
-/// utiliza la formula computacional para mejorar la eficiencia
-/// n: tamano del arreglo
-/// x: arreglo de datos
-static double varp_ecf(const Dynarray *dar) {
-  double sx = 0.0;
-  double sx2 = 0.0;
-  for (int i = 0; i < dar->size; ++i) {
-    double xi = dar->data[i];
-    sx += xi;
-    sx2 += xi * xi;
-  }
-  const double mean = sx / dar->size;
-  const double result = sx2 / dar->size - mean * mean;
-  return result;
+const double *dyna_data(const Dynarray *dyna) {
+  return dyna->data;
 }
 
-
-void show_dynarray(const Dynarray *dyna) {
-  size_t N = dyna->size;
-  fprintf(stdout, "[\n");
-  for (size_t i = 0; i < N; ++i) {
-    fprintf(stdout, "  %8.6f\n", dyna->data[i]);
-  }
-  fprintf(stdout, "]\n");
+size_t dyna_size(const Dynarray *dyna) {
+  return dyna->size;
 }
 
-Dynarray concatenate(const Dynarray *lhs, const Dynarray *rhs) {
-  Dynarray result;
-  size_t M = lhs->size;
-  size_t N = rhs->size;
+size_t dyna_capacity(const Dynarray *dyna) {
+  return dyna->capacity;
+}
 
-  result.size = result.capacity = 0; // ... completar
+void dyna_sort(Dynarray *dyna) {
+  // ... implementar
+}
 
-  result.data = (double *) malloc(result.capacity * sizeof(double));
+Dynarray *dyna_concatenate(const Dynarray *dyna1, const Dynarray *dyna2) {
 
+  // eliminen esto: siempre deben eliminar trazas como esta al completar
+  fprintf(stderr, "WARNING: dyna_concatenate: not implemented\n");
+
+  size_t S1 = dyna1->size;
+  size_t S2 = dyna2->size;
+  Dynarray *result = (Dynarray *) malloc(sizeof(Dynarray));
+  result->size = 0; // <<< cambiar y completar
+  result->capacity = 0; // <<< cambiar y completar
+  result->data = nullptr; // <<< cambiar y completar
   // ... completar
-
   return result;
-}
-
-// Initializer functions
-
-double fortytwo(int) {
-  return 42;
-}
-
-double uniform(int) {
-  return double(rand()) / double(RAND_MAX);
-}
-
-double fancy(int i) {
-  return i + uniform(i);
-}
-
-// Main
-
-int main(int argc, const char *argv[]) {
-  assert(argc == 3);
-  const int M = atoi(argv[1]);
-  const int N = atoi(argv[2]);
-
-  Dynarray x = dynarray(M, fancy);
-  show_dynarray(&x);
-
-  Dynarray y = dynarray(N, fancy);
-  show_dynarray(&y);
-
-  Dynarray z = dynarray(1024, uniform);
-  double avg = mean(&z);
-  double var = varp_ecf(&z);
-  fprintf(stdout, "avg = %f, var = %f\n", avg, var);
-
-  Dynarray result = concatenate(&x, &y);
-  show_dynarray(&result);
 }

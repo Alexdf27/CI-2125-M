@@ -1,1 +1,1 @@
-$CC -D_GLIBCXX_DEBUG *.cxx -o run
+$CC *.cxx -o run
