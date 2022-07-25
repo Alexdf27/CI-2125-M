@@ -33,14 +33,14 @@ struct Dynarray {
   size_t capacity;
 };
 
-Dynarray *dynarray(int N, Initializer init) {
+Dynarray *dynarray(size_t N, Initializer init) {
   Dynarray *dyna = (Dynarray *) malloc(sizeof(Dynarray));
-  dyna->data = (double *) malloc(N * sizeof(double));
-  for (int i = 0; i < N; ++i) {
-    dyna->data[i] = init(i);
-  }
   dyna->size = N;
   dyna->capacity = N;
+  dyna->data = (double *) malloc(N * sizeof(double));
+  for (size_t i = 0; i < N; ++i) {
+    dyna->data[i] = init(i);
+  }
   return dyna;
 }
 
@@ -66,7 +66,8 @@ void dyna_sort(Dynarray *dyna) {
 
 Dynarray *dyna_concatenate(const Dynarray *dyna1, const Dynarray *dyna2) {
 
-  // eliminen esto: siempre deben eliminar trazas como esta al completar
+  // eliminen este mensaje: SIEMPRE deben eliminar trazas como esta al completar
+  // igual para trazas de "debugging", a menos que sean "guardadas" por condicionales
   fprintf(stderr, "WARNING: dyna_concatenate: not implemented\n");
 
   size_t S1 = dyna1->size;

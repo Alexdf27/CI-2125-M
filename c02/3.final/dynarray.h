@@ -18,12 +18,12 @@ struct Dynarray;
 /// constructor de arreglo dinamico
 ///
 /// retorna el apuntador al nuevo arreglo dinamico
-Dynarray *dynarray(int N, Initializer init);
+Dynarray *dynarray(size_t N, Initializer init);
 
 ///
 /// destructor de arreglo dinamico
 ///
-/// libera la memoria usada internamente por el arreglo dinamico
+/// libera la memoria usada internamente por el arreglo dinamico y anula el apuntador
 void dyna_destroy(Dynarray **dynarray);
 /// Lo anterior es todo lo necesario para especificar la funcion
 /// Lo que sigue es ayuda para entender las implicaciones
@@ -32,8 +32,7 @@ void dyna_destroy(Dynarray **dynarray);
 /// ... esto permite volver nulo el apuntador del cliente de la libreria (el usuario)
 /// Liberar la memoria solo requeriria el *valor* del apuntador, no su *direccion*
 /// Si no entienden lo anterior, significa que todavia no dominan apuntadores
-/// Estudien, investiguen, discutan con otros estudiantes, y pregunten
-
+/// Por favor, estudien, investiguen, discutan con otros estudiantes, y pregunten
 
 ///
 /// funciones de acceso

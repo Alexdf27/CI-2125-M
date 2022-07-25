@@ -5,6 +5,7 @@
 ///
 
 #include "dynarray.h"
+#include "matrix.h"
 #include "stochastic.h"
 
 #include <assert.h>
@@ -29,50 +30,13 @@
 /// https://en.wikipedia.org/wiki/Software_testing
 /// https://en.wikipedia.org/wiki/Edge_case
 
-//////////////////////////////////////////
-/// Seccion: tablas + entrada y salida ///
-//////////////////////////////////////////
-
-int test_table(int argc, const char *argv[]) {
-  return 0;
-}
-
-//////////////////////////////////////////////////
-/// Seccion: matrices y pruebas de rendimiento ///
-//////////////////////////////////////////////////
-
-int test_matrix_performance(int argc, const char *argv[]) {
-  return 0;
-}
-
-///////////////////////////////////
-/// Seccion: arreglos dinamicos ///
-///////////////////////////////////
+///////////////////////////////////////////////
+/// Seccion: funciones de apoyo compartidas ///
+///////////////////////////////////////////////
 
 ///
-/// show_dynarray: imprime un arreglo dinamico
-///
-/// const Dynarray *dyna: apuntador a un arreglo dinamico
-///
-void show_dynarray(const Dynarray *dyna) {
-  
-  // no podemos accesar directamente los campos de la estructura Dynarray ...
-  // ... ya que son partes privadas de la implementacion.
-  // pero podemos obtener sus valores usando las funciones de acceso
-  const double *data = dyna_data(dyna);
-  size_t size = dyna_size(dyna);
-  size_t capacity = dyna_capacity(dyna);
-
-  fprintf(stdout, "numero de elementos / capacidad: %u/%u\n", size, capacity);
-  fprintf(stdout, "[\n");
-  for (size_t i = 0; i < size; ++i) {
-    fprintf(stdout, "  %6d: %12.6f\n", i, data[i]);
-  }
-  fprintf(stdout, "]\n\n");
-}
-
-///
-/// Funciones inicializadoras
+/// Funciones para inicializar elementos
+/// Son usadas para probar matrices y arreglos dinamicos
 ///
 
 double zero(int) {
@@ -125,21 +89,116 @@ Initializer get_initializer(const char *choice) {
   return zero;
 }
 
+//////////////////////////////////////////
+/// Seccion: tablas + entrada y salida ///
+//////////////////////////////////////////
+
+int test_table(int argc, const char *argv[]) {
+  return 0;
+}
+
+//////////////////////////////////////////////////
+/// Seccion: matrices y pruebas de rendimiento ///
+//////////////////////////////////////////////////
+
+///
+/// show_dynarray: imprime un arreglo dinamico
+///
+/// const Dynarray *dyna: apuntador a un arreglo dinamico
+///
+void show_matrix(const char *name, const Matrix *matrix) {
+  // no podemos acceder directamente a los campos de la estructura Matrix ...
+  // ... y tampoco cambiarlos, ya que son partes privadas de la implementacion.
+  // pero podemos obtener sus valores usando las funciones de acceso
+  size_t NR = matrix_nr(matrix);
+  size_t NC = matrix_nc(matrix);
+  const double **data = matrix_data(matrix);
+
+  fprintf(stdout, "%s: forma: (%zux%zu)\n", name, NR, NC);
+  fprintf(stdout, "[\n");
+  for (size_t i = 0; i < NR; ++i) {
+    fprintf(stdout, "\t[");
+    for (size_t j = 0; j < NC; ++j) {
+      fprintf(stdout, " %12.6f", data[i][j]);
+    }
+    fprintf(stdout, " ]\n");
+  }
+  fprintf(stdout, "]\n\n");
+}
+
+int test_matrix_small(/* ...*/) {
+  Matrix *lhs = matrix(6, 8, fortytwo);
+  show_matrix("lhs", lhs);
+
+  Matrix *rhs = matrix(6, 8, u);
+  show_matrix("rhs", rhs);
+
+  Matrix *sum1 = matrix_sum(lhs, rhs);
+  assert(sum1 != nullptr); // siempre es una buena idea chequear que no hubo error
+  show_matrix("sum1", sum1);
+
+  matrix_destroy(&sum1); // "probar" (parcialmente) la liberacion de memoria
+  assert(sum1 == nullptr); // verificar matrix_destroy
+
+  Matrix *m66 = matrix(6, 6, u);
+  Matrix *sum2 = matrix_sum(lhs, m66); // ¿podriamos volver a usar sum1 aqui?
+  assert(sum2 == nullptr); // aqui *experamos* que hubo un error
+  // show_matrix("sum2", sum2); // ¿que pasa si tratan de ver la matriz?
+
+  // ...
+  return 0;
+}
+
+int test_matrix_performance(int argc, const char *argv[]) {
+  /// pueden utilizar argv para configurar algunos tests a su manera
+  /// pero tienen que documentar como usarlo
+  int status = 0;
+  status += test_matrix_small(/*...*/);  
+  return status;
+}
+
+///////////////////////////////////
+/// Seccion: arreglos dinamicos ///
+///////////////////////////////////
+
+///
+/// show_dynarray: imprime un arreglo dinamico
+///
+/// const Dynarray *dyna: apuntador a un arreglo dinamico
+///
+void show_dynarray(const Dynarray *dyna) {
+  // no podemos accesar directamente los campos de la estructura Dynarray ...
+  // ... y tampoco cambiarlos, ya que son partes privadas de la implementacion.
+  // pero podemos obtener sus valores usando las funciones de acceso
+  size_t size = dyna_size(dyna);
+  size_t capacity = dyna_capacity(dyna);
+  const double *data = dyna_data(dyna);
+
+  fprintf(stdout, "numero de elementos / capacidad: %u/%u\n", size, capacity);
+  fprintf(stdout, "[\n");
+  for (size_t i = 0; i < size; ++i) {
+    fprintf(stdout, "  %6d: %12.6f\n", i, data[i]);
+  }
+  fprintf(stdout, "]\n\n");
+}
+
 ///
 /// Prueba de arreglos dinamicos (debe ser extendida)
 ///
 
 int test_dynamic_arrays(int argc, const char *argv[]) {
-  // si argc es mayor o igual a 3, usar el parametro provisto, si no 8
-  size_t NX = (3 <= argc ? atoi(argv[2]) : 8);
+  // si argc es mayor o igual a 3, usar el parametro provisto
+  const size_t NX_DEFAULT = 8;
+  const size_t NX = (3 <= argc ? atoi(argv[2]) : NX_DEFAULT);
 
   Initializer init_x = get_initializer("z");
 
   Dynarray *x = dynarray(NX, init_x);
   show_dynarray(x);
 
-  // si argc es mayor o igual a 4, usar el parametro provisto, si no 16
-  size_t NY = (4 <= argc ? atoi(argv[3]) : 16);
+  // si argc es mayor o igual a 4, usar el parametro provisto
+  const size_t NY_DEFAULT = 16;
+  const size_t NY = (4 <= argc ? atoi(argv[3]) : NY_DEFAULT);
   Initializer init_y = get_initializer("f");
 
   Dynarray *y = dynarray(NY, init_y);
@@ -166,11 +225,11 @@ int dispatch(int argc, const char *argv[]) {
 /// Main: punto de entrada
 ///
 int main(int argc, const char *argv[]) {
-  // accept no less than one argument
+  // acceptar no menos de un argumento para despachar
   assert(2 <= argc);
   int status = dispatch(argc, argv);
   if (status != 0) {
-    fprintf(stderr, "completed with errors: status %d\n", status);
+    fprintf(stderr, "se completo con errores: status %d\n", status);
   }
   return status;
 }
