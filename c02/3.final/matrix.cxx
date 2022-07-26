@@ -60,7 +60,7 @@ Matrix *matrix_sum(const Matrix *lhs, const Matrix *rhs) {
   size_t RNC = rhs->NC;
   // if lhs and rhs are not conformant, print error and return null
   if (LNR != RNR || LNC != RNC) {
-    fprintf(stderr, "estas matrices no tienen la misma forma no pueden ser sumadas: ");
+    fprintf(stderr, "Error: matrices que no tienen la misma forma no pueden ser sumadas: ");
     fprintf(stderr, "(%zux%zu) != (%zux%zu)\n", LNR, LNC, RNR, RNC);
     return nullptr;
   }
