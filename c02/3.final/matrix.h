@@ -5,9 +5,9 @@
 #ifndef _matrix_h_
 #define _matrix_h_
 
-#include <stdlib.h>
+#include "init.h"
 
-typedef double (*Initializer)(int i);
+#include <stdlib.h>
 
 struct Matrix;
 

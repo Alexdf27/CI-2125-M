@@ -5,6 +5,7 @@
 #include "matrix.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef double (*Initializer)(int i);
 

@@ -5,12 +5,9 @@
 #ifndef _dynarray_h_
 #define _dynarray_h_
 
-#include <stdlib.h>
+#include "init.h"
 
-///
-/// tipo de las funciones que inicializan elementos de un dynarray
-///
-typedef double (*Initializer)(int i);
+#include <stdlib.h>
 
 struct Dynarray;
 

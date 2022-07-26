@@ -1,0 +1,9 @@
+//////////////////////////////////////////
+/// Seccion: tablas + entrada y salida ///
+//////////////////////////////////////////
+
+#include "test_table.h"
+
+int test_table(int argc, const char *argv[]) {
+  return 0;
+}
