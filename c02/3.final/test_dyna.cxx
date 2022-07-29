@@ -10,11 +10,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-///////////////////////////////////
-/// Seccion: arreglos dinamicos ///
-///////////////////////////////////
-
-
 ///
 /// show_dynarray: imprime un arreglo dinamico
 ///
@@ -31,8 +26,12 @@ static void show_dynarray(const Dynarray *dyna) {
   fprintf(stdout, "numero de elementos / capacidad: %u/%u\n", size, capacity);
   fprintf(stdout, "[\n");
   for (size_t i = 0; i < size; ++i) {
-    fprintf(stdout, "  %6d: %12.6f\n", i, data[i]);
+    fprintf(stdout, "  %6d: %12.6f\n", i, data[i]); // <== notar la noitacion data[i]
   }
+  // a ver si notan y tienen el sentido comun de eliminar este error intencional
+  // que pasa si usan la notacion data[] en vez de dyna_val(10000, dyna)?
+  size_t i = 801702; // https://www.youtube.com/watch?v=5aQ1wFt82k4
+  fprintf(stdout, "  %6d: %12.6f\n", i, dyna_val(i, dyna));
   fprintf(stdout, "]\n\n");
 }
 
