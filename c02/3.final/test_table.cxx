@@ -25,6 +25,11 @@ struct Student {
   float gpa;
 };
 
+static void show_student(const char *label, Student *s) {
+  // horror: no estamos incluyendo todos los datos del estudiante!
+  fprintf(stdout, "%s: %16s, %32s %4.2f\n", label, s->sid, s->name, s->gpa);
+}
+
 // random student constructor
 static Student *random_student() {
   // prep for sid, cohort, gpa
