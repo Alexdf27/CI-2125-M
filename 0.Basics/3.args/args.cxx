@@ -3,6 +3,8 @@
 ///
 /// Este ejemplo muestra los argumentos argc y argv pasados a main al ejecutar el programa
 ///
+/// Ejercicio: convertir el lazo 'while' a un lazo 'for'
+///
 
 #include <stdio.h>
 

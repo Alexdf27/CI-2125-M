@@ -3,7 +3,8 @@
 ///
 /// programa que cuenta de 1 a N
 ///
-/// Ejercicio: corregir y completar el programa para hacerlo robusto (Windows y Linux)
+/// Ejercicio 1: corregir y completar el programa para hacerlo robusto (Windows y Linux)
+/// Ejercicio 2: convertir el lazo 'while' a un lazo 'for'
 ///
 
 #include <stdio.h>

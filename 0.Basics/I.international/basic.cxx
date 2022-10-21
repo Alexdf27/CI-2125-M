@@ -1,5 +1,5 @@
 ///
-/// ihello.cxx
+/// basic.cxx
 ///
 
 /// Especificación por ejemplos:
