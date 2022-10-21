@@ -1,6 +1,9 @@
 ///
 /// basic.cxx
 ///
+/// Ejercicio: ver https://cplusplus.com/reference/cstdio/printf/
+/// Ejercicio: buscar "C format specifiers" en la Web
+///
 
 #include <stdio.h>
 
