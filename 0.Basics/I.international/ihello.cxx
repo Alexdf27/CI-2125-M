@@ -1,7 +1,10 @@
 ///
-/// basic.cxx
+/// ihello.cxx
+///
+/// The international "Hello, world"!
 ///
 
+///
 /// Especificación por ejemplos:
 ///
 /// ihello => "Hello, world!"
@@ -10,15 +13,13 @@
 /// ihello en Raimundo => "Hello, Raimundo!"
 /// ihello sp Raimundo => "Hola, Raimundo!"
 ///
-/// Deben incluir el encabezado que declara a strcmp
+/// Recuerden
+/// - incluir el encabezado que declara a strcmp
+/// - chequear que el número de argumentos es consistente
+/// - chequear que el código internacional del lenguaje esta soportado
+/// - proveer mensajes de error entendibles, que proveen infomación 
 ///
-/// Recuerden chequear que
-/// - el número de argumentos es consistente
-/// - el código internacional del lenguaje esta soportado
-///
-/// Proveer mensajes de error infomación 
-///
-/// Implentar solo dos o tres lenguajes, para no alargar el código demasiado
+/// Implentaen solo dos o tres lenguajes, para no alargar el código demasiado
 ///
 
 #include <stdio.h>

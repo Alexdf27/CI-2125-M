@@ -19,6 +19,17 @@
 /// 1. razones de enseñanza: en particular el deseo de evitar casos especiales
 /// 2. convenciones generalmente aceptadas de "mejores practicas" de programación
 /// 
+/// Ejercicio: compilar y ejecutar el programa
+///
+/// Ejemplos de como compilar el programa en MINGW64:
+///
+///   g++ hello.cxx -o hello
+///   gcc hello.cxx -o hello
+///
+/// Ejemplo de como ejecutar el programa:
+///
+/// ./hello
+/// ./hello.exe
 ///
 
 #include <stdio.h>
