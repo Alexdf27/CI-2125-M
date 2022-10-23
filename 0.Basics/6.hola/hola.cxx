@@ -17,7 +17,7 @@ int main(int argc, const char *argv[])
   } else if (argc == 2) {
     // ... imprimir "Hola <nombre>!"
   } else {
-    // esta 
+    // ... imprimir un error
     fprintf(stderr, "uso: %s [<nombre>]\n", argv[0]);
     return 1;
   }
