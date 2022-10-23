@@ -1,8 +1,8 @@
 ///
 /// fibo.cxx
 ///
-/// Esta tarea viene de la tarea 0 parte C. Vamos a generalizarla en código.
-/// Recomendamos fuertemente hacer la tarea anterior (T0.A) antes de esta
+/// Esta tarea se deriva de la tarea 0 parte C. Es la tarea 2 llevada a código real.
+/// Recomendamos fuertemente hacer la tarea anterior (T2.A) antes de esta
 ///
 /// Si corren el siguiente fragmento en frío pueden notar que la variable s
 /// toma estos valores, en secuencia: 1, 2, 3, 5
@@ -42,7 +42,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// version recursiva correspondiente a la definición ... do not touch!
+// version recursiva correspondiente a la definición ... no tocar!
 int fibonacci(int n) {
   if (n == 0) {
     return 0;
@@ -53,21 +53,19 @@ int fibonacci(int n) {
   return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
-// version recursiva en una linea ... do not touch!
+// version recursiva en una linea ... no tocar!
 int fibo_recursive(int n) {
   return n < 2 ? n : fibo_recursive(n - 1) + fibo_recursive(n - 2);
 }
 
 // version rápida ... this is where you do your magic
 int fibo(int n) {
-  assert(n >= 0); // precondición: aborta si no se cumple
+  assert(n >= 0); // precondición: simplemente aborta si no se cumple
 
   int resultado = fibonacci(n);
-
   // ...
   // ... hagan su "magia" aqui
   // ...
-
   assert(resultado == fibo_recursive(n));
   return resultado;
 }
