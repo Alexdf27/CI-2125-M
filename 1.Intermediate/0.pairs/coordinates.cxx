@@ -70,11 +70,13 @@ void main_evolved() {
   double result = distance_evolved(p1, p2);
   fprintf(stdout, "evolved: %lf\n", result);
 
-  // result = distance_evolved({ 4.0, 2.0 }, { 7.0, 6.0 }); // legal en C++ mas no en C
-  // fprintf(stdout, "evolved: %lf\n", result);
+  result = distance_evolved({ 4.0, 2.0 }, { 7.0, 6.0 }); // <= legal en C++ mas no en C
+  fprintf(stdout, "evolved: %lf\n", result);
 }
 
-/*
+//
+// Lo que sigue require C++
+//
 
 //
 // A more elegant way: the advent of constructors in C++
@@ -105,11 +107,9 @@ void main_elegant() {
   fprintf(stdout, "elegant: %lf\n", result);
 }
 
-*/
-
 int main() {
   main_ancient();
   main_evolved();
-  // main_elegant();
+  main_elegant();
   return 0;
 }
