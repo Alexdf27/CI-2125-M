@@ -1,13 +1,16 @@
 ///
 /// coordinates.cxx
 ///
+/// Basic introduction to product types: cartesian plane coordinates
+/// Example: computing the distance between two points in the cartesian plane
+///
 
 #include <math.h>
 #include <stdio.h>
 
 //
-// The ancient way (FORTRAN): no product-type abstraction
-// Estilo antiguo (FORTRAN): sin soporte a abstracciones para tipos compuestos
+// The ancient way (early FORTRAN): no product-type abstraction
+// Estilo antiguo: lenguaje sin soporte a abstracciones para tipos compuestos
 //
 
 double distance_ancient(double ax, double ay, double bx, double by) {
@@ -29,13 +32,16 @@ void main_ancient() {
 }
 
 //
-// A more evolved way: the early years of C and Disco
-// Estilo más evolucionado: los primeros años de C y musica Disco
+// A more evolved way: struct types in the early years of C
+// Estilo más evolucionado: tipos 'struct' en los primeros años de C
 //
 
-// Alternative A: straight to typedef
-// naive syntax (simple but deceptive): typedef <type> <name>
-// actual syntax (the true story): <type> <expression using the defined name>
+// Alternative A: combining the struct type declaration with a typedef
+// naive syntax interpretation (simple but deceptive): typedef <type> <name>
+// correct syntax interpretation: typedef <type> <expression using the name being defined>
+//
+// Good news: In simple cases the naive and the correct interpretation coincide
+// The example here is indeed a simple case 
 //
 // /*
 typedef struct {
@@ -80,7 +86,7 @@ void main_evolved() {
 
 //
 // A more elegant way: the advent of constructors in C++
-// Estilo más elegante: la llegada de constructores en C++
+// Estilo más elegante: gracias a la llegada de constructores en C++
 //
 
 struct Point {
