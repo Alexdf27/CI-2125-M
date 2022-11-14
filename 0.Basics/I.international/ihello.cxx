@@ -19,10 +19,11 @@
 /// - chequear que el código internacional del lenguaje esta soportado
 /// - proveer mensajes de error entendibles, que proveen infomación 
 ///
-/// Implentaen solo dos o tres lenguajes, para no alargar el código demasiado
+/// Implementen solo dos o tres lenguajes, para no alargar el código demasiado
 ///
 
 #include <stdio.h>
+#include <string.h>
 
 int main(int argc, const char *argv[])
 {
