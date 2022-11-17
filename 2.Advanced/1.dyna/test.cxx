@@ -1,5 +1,5 @@
 ///
-/// main.cxx
+/// test.cxx
 ///
 
 #include "dynamic_array.h"
@@ -22,10 +22,6 @@ double frac(double r) {
 double uniform() {
   seed = frac(997 * seed);
   return seed;
-}
-
-double weird(int i) {
-  return i + uniform();
 }
 
 void show_as_row(const Dynad& dynad) {
@@ -55,10 +51,10 @@ void show(const Dynad& dynad) {
   }
 }
 
-dynad_test() {
-  Dynad d0 = Dynad(8);
+void dynad_test() {
+  Dynad d0 = Dynad(4);
   Dynad d1 = Dynad(8, uniform);
-  Dynad d2 = Dynad(8, weird);
+  Dynad d2 = Dynad(4, []() -> double {return 42;});
   show(d0);
   show(d1);
   show(d2);
@@ -70,10 +66,6 @@ dynad_test() {
 
 typedef Dynarray<Dynad> Matrix;
 
-Dynad dynad8() {
-  return Dynad(8, uniform);
-}
-
 void show_matrix(const Matrix& matrix) {
   const int n = matrix.size();
   fprintf(stdout, "[\n");
@@ -84,15 +76,46 @@ void show_matrix(const Matrix& matrix) {
   fprintf(stdout, "]\n");
 }
 
-matrix_test() {
-  Matrix m0 = Matrix(8);
-  Matrix m1 = Matrix(8, dynad8);
+Matrix matrix(int M, int N) {
+  Matrix m = Matrix(M);
+  for (int i = 0; i < M; ++i) {
+    m[i] = Dynad(N);
+  }
+  return m;
+}
+
+Matrix matrix(int M, int N, double (*f)()) {
+  Matrix m = Matrix(M);
+  for (int i = 0; i < M; ++i) {
+    m[i] = Dynad(N, f);
+  }
+  return m;
+}
+
+void matrix_test_1() {
+  Matrix m0 = Matrix(4, []() { return Dynad(6); });
+  Matrix m1 = Matrix(6, []() { return Dynad(8, uniform); });
+  Matrix m2 = Matrix(2, []() { return Dynad(2, []() -> double { return 42; }); });
   show_matrix(m0);
   show_matrix(m1);
+  show_matrix(m2);
+}
+
+void matrix_test_2() {
+  Matrix m0 = matrix(4, 6);
+  Matrix m1 = matrix(6, 8, uniform);
+  Matrix m2 = matrix(2, 2, []() -> double { return 42; });
+  show_matrix(m0);
+  show_matrix(m1);
+  show_matrix(m2);
 }
 
 int main(int argc, const char *argv[]) {
+  fprintf(stdout, "\nsizeof(Dynad) = %zu\n", sizeof(Dynad));
   dynad_test();
-  matrix_test();
+  
+  fprintf(stdout, "\nsizeof(Matrix) = %zu\n", sizeof(Matrix));
+  matrix_test_1();
+  matrix_test_2();
   return 0;
 }

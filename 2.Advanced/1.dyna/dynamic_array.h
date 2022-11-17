@@ -13,14 +13,15 @@ public:
 
   Dynarray() {
     size_ = 0;
-    capacity_ = 0;
+    capacity_ = size_;
     data_ = nullptr;
   }
 
   Dynarray(int n) {
     size_ = n;
-    capacity_ = n;
-    data_ = (T *) calloc(capacity_, sizeof(T));
+    capacity_ = size_;
+    // data_ = (T *) calloc(capacity_, sizeof(T));
+    data_ = static_cast<T *>(calloc(capacity_, sizeof(T)));
     for (int i = 0; i < n; ++i) {
       T *pT = new (data_ + i) T();
     }
@@ -28,25 +29,17 @@ public:
 
   Dynarray(int n, T (*f)()) {
     size_ = n;
-    capacity_ = n;
-    data_ = (T *) calloc(capacity_, sizeof(T));
+    capacity_ = size_;
+    data_ = static_cast<T *>(calloc(capacity_, sizeof(T)));
     for (int i = 0; i < n; ++i) {
       T *pT = new (data_ + i) T((*f)());
     }
   }
 
-  Dynarray(int n, T (*f)(int i)) {
-    size_ = n;
-    capacity_ = n;
-    data_ = (T *) calloc(capacity_, sizeof(T));
-    for (int i = 0; i < n; ++i) {
-      T *pT = new (data_ + i) T((*f)(i));
-    }
-  }
-
   Dynarray(const Dynarray& other) {
-    capacity_ = size_ = other.size_;
-    data_ = (T *) calloc(capacity_, sizeof(T));
+    size_ = other.size_;
+    capacity_ = size_;
+    data_ = static_cast<T *>(calloc(capacity_, sizeof(T)));
     for (int i = 0; i < size_; ++i) {
       T *pT = new (data_ + i) T(other.data_[i]);
     }

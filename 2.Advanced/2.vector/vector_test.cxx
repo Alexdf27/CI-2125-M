@@ -1,3 +1,0 @@
-///
-/// vector_test.cxx
-///
