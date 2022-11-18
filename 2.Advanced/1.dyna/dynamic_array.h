@@ -5,7 +5,7 @@
 #pragma once
 
 #include <new>
-#include <stdlib.h>
+#include <cstdlib>
 
 template <typename T>
 class Dynarray {
