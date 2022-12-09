@@ -39,7 +39,7 @@ int load_student_db(StudentDB *db, const char *filename) {
     return ERROR_FILE_NOT_FOUND;
   }
 
-  const int BUFSIZE = 256;
+  const int BUFSIZE = 512;
   char buffer[BUFSIZE];
   for (;;) {
     const char *status = fgets(buffer, BUFSIZE, fp);
@@ -82,6 +82,13 @@ int find_student(StudentDB *db, uint32_t key) {
 // Busca estudiante por identificador
 // retorna el indice del estudiante en el vector o -1 si no lo consigue
 int find_student_by_id(StudentDB *db, const char *id) {
+  fprintf(stdout, "INCOMPLETO\n");
+  return -1; // not found
+}
+
+// Busca estudiante por su nombre
+// retorna el indice del estudiante en el vector o -1 si no lo consigue
+int find_student_by_name(StudentDB *db, const char *name) {
   fprintf(stdout, "INCOMPLETO\n");
   return -1; // not found
 }

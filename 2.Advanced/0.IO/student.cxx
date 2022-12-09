@@ -11,18 +11,6 @@
 
 using std::string;
 
-#define OLD_WAY false
-
-#if OLD_WAY
-Student students[] = {
-  { 0x000040FA, "16-28376", "Athina Markopoulou", 3.69 },
-  { 0x000020AF, "17-29114", "Barbara Carminati", 4.07 },
-  { 0x0000608A, "18-29887", "Kaoutar El Maghraoui", 3.88 },
-  { 0x00006196, "18-29891", "Panagiotis Papadimitratos", 4.24 },
-  { 0x000020AF, "18-29929", "Ke Yi", 4.28 },
-  { 0x000010CC, "19-33836", "Margaret Hamilton", 4.16 }
-};
-#else
 Student students[] = {
   Student(0x000040FA, "16-28376", "Athina Markopoulou", 3.69),
   Student(0x000020AF, "17-29114", "Barbara Carminati", 4.07),
@@ -31,12 +19,11 @@ Student students[] = {
   Student(0x000020AF, "18-29929", "Ke Yi", 4.28),
   Student(0x000010CC, "19-33836", "Margaret Hamilton", 4.16)
 };
-#endif
 
 static PRNG32 prng32;
 
 Student::Student(const char *identifier, string name, float gpa) {
-  this->key = prng32.next();
+  this->key = prng32.next(); // generacion interna de la clave
   strncpy(this->identifier, identifier, sizeof(this->identifier));
   this->name = name;
   this->gpa = gpa;
@@ -109,7 +96,7 @@ static void file_test() {
   fprintf(stdout, "\nSHORT FORMAT:\n");
   for (int i = 0; i < NS; ++i) {
     Student *s = &students[i];
-    fprintf(stdout, student_short_format, s->identifier, s->name.c_str());
+    fprintf(stdout, student_short_format, s->identifier, s->name.c_str(), s->gpa);
   }
 
   fprintf(stdout, "================================\n");
@@ -129,7 +116,7 @@ static void file_test() {
 
   FILE *db = fopen("small.db", "w");
   for (int i = 0; i < NS; ++i) {
-    Student *s = &students[i];
+    const Student *s = &students[i];
     fprintf(db, student_long_format, s->key, s->identifier, s->name.c_str(), s->gpa);
   }
   fclose(db);

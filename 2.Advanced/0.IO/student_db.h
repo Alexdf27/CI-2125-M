@@ -21,7 +21,7 @@ int find_student(StudentDB *db, uint32_t key);
 
 int find_student_by_id(StudentDB *db, const char *id);
 
-int find_student_by_name(StudentDB *db, const char *id);
+int find_student_by_name(StudentDB *db, const char *name);
 
 int add_student(StudentDB *db, Student student);
 
