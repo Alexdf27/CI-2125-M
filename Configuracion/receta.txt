@@ -1,0 +1,16 @@
+Receta para el exito
+
+0. Si ya clonaron el repositorio CI-2125-Material, borrenlo!
+Es decir, borren el directorio completo del clone en su maquina.
+
+En el paso 3 van a tener que clonar es el CI-2125-M, ... 
+... como dicen las laminas, para evitar confusion.
+
+1. Visitar esta carpeta publica en Google drive:
+https://drive.google.com/drive/u/0/folders/1gRRabGpuK6cRPI8T8ADdfCg4nJqC3g9M
+
+2. Repasen (lectura facil) el documento:
+CI-2125 I - Lab Prep I - Herramientas de Programación
+
+3. Sigan cuidadosamente los pasos en el documento:
+CI-2125 I - Lab Prep II - Configuracion del Ambiente
